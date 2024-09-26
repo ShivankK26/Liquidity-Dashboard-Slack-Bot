@@ -33,16 +33,13 @@ const runAtMidnight = async() => {
 try {
 
   const data = await getDocs(userCollection)
-
-  let users=await data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-
+  let users = await data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
   const uniqueArray = Array.from(
     new Map(users.map(item => [item.chatId, item])).values()
 );
 
   const now = new Date();
-  
-  const time=date.format(now, 'MMM DD YYYY');
+  const time = date.format(now, 'MMM DD YYYY');
 
 
   //bybit
@@ -118,7 +115,7 @@ try {
   const res_dfynrouteeth_depth=await axios('http://localhost:8000/dfyneth_data_route_depth')
   const res_dfynrouteusdc_depth=await axios('http://localhost:8000/dfynusdc_data_route_depth')
 
-  const webhookUrl = 'https://hooks.slack.com/services/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';
+  const webhookUrl = 'https://hooks.slack.com/services/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';
 
     try {
       const response = await axios.post(webhookUrl, {
@@ -134,7 +131,6 @@ try {
             1.1.1 Trading Volume: ${(Number(volume_kucoin)).toLocaleString()}
             1.1.2 Spread: ${parseFloat((res_kucoin1.data.data.sell - res_kucoin1.data.data.buy) / res_kucoin1.data.data.buy * 100).toFixed(2)}
             1.1.3 Depth: 0.3%: ${parseFloat(depth_kucoin["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(depth_kucoin["0.5%"]).toFixed(2)}, 1%: ${parseFloat(depth_kucoin["1%"]).toFixed(2)}
-              
             
           1.3 Mexc
             1.1.1 Trading Volume: ${(Number(volume_mexc)).toLocaleString()}
@@ -153,23 +149,26 @@ try {
             
           1.6 Dfyn ROUTE-ETH
             1.1.1 Trading Volume: ${Number(res_dfynrouteeth.data.data.attributes.volume_usd.h24).toLocaleString()}
-            1.1.2 Depth: 0.3%: ${parseFloat(res_dfynrouteeth_depth["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(res_dfynrouteeth_depth["0.5%"]).toFixed(2)}, 1%: ${parseFloat(res_dfynrouteeth_depth["1%"]).toFixed(2)}
-            
+            1.1.2 Depth: 0.3%:  ${parseFloat(res_dfynrouteeth_depth.data["0.3%"]).toFixed(2)} , 0.5%:  ${parseFloat(res_dfynrouteeth_depth.data["0.5%"]).toFixed(2)} , 1%:  ${parseFloat(res_dfynrouteeth_depth.data["1%"]).toFixed(2)}
+
           1.7 Dfyn ROUTE-USDC
             1.1.1 Trading Volume: ${Number(res_dfynrouteusdc.data.data.attributes.volume_usd.h24).toLocaleString()}
-            1.1.2 Depth: 0.3%: ${parseFloat(res_dfynrouteusdc_depth["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(res_dfynrouteusdc_depth["0.5%"]).toFixed(2)}, 1%: ${parseFloat(res_dfynrouteusdc_depth["1%"]).toFixed(2)}
-            
+            1.1.2 Depth: 0.3%:  ${parseFloat(res_dfynrouteusdc_depth.data["0.3%"]).toFixed(2)} , 0.5%:  ${parseFloat(res_dfynrouteusdc_depth.data["0.5%"]).toFixed(2)} , 1%:  ${parseFloat(res_dfynrouteusdc_depth.data["1%"]).toFixed(2)} 
+              
           1.8 UniSwap V2 ROUTE-ETH
             1.1.1 Trading Volume: ${Number(res_uniswaprouteethv2.data.data.attributes.volume_usd.h24).toLocaleString()}
-            1.1.2 Depth: 0.3%: ${parseFloat(res_uniswaprouteethv2_depth["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(res_uniswaprouteethv2_depth["0.5%"]).toFixed(2)}, 1%: ${parseFloat(res_uniswaprouteethv2_depth["1%"]).toFixed(2)}
-            
+            1.1.2 Depth: 0.3%:  ${parseFloat(res_uniswaprouteethv2_depth.data["0.3%"]).toFixed(2)} , 0.5%:  ${parseFloat(res_uniswaprouteethv2_depth.data["0.5%"]).toFixed(2)} , 1%:  ${parseFloat(res_uniswaprouteethv2_depth.data["1%"]).toFixed(2)}
+      
           1.9 UniSwap V2 ROUTE-USDC
             1.1.1 Trading Volume: ${Number(res_uniswaprouteusdcv2.data.data.attributes.volume_usd.h24).toLocaleString()}
-            1.1.2 Depth: 0.3%: ${parseFloat(res_uniswaprouteusdcv2_depth["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(res_uniswaprouteusdcv2_depth["0.5%"]).toFixed(2)}, 1%: ${parseFloat(res_uniswaprouteusdcv2_depth["1%"]).toFixed(2)} 
+            1.1.2 Depth: 0.3%: ${parseFloat(res_uniswaprouteusdcv2_depth.data["0.3%"]).toFixed(2)} , 0.5%: ${parseFloat(res_uniswaprouteusdcv2_depth.data["0.5%"]).toFixed(2)} , 1%: ${parseFloat(res_uniswaprouteusdcv2_depth.data["1%"]).toFixed(2)}              
             
           1.10 UniSwap V3 ROUTE-ETH
             1.1.1 Trading Volume: ${(Number(res_uniswaprouteethv3.data.data.attributes.volume_usd.h24)).toLocaleString()}
-            1.1.2 Depth: 0.3%: ${parseFloat(res_uniswaprouteethv3_depth["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(res_uniswaprouteethv3_depth["0.5%"]).toFixed(2)}, 1%: ${parseFloat(res_uniswaprouteethv3_depth["1%"]).toFixed(2)}    	
+            1.1.2 Depth: 0.3%: ${parseFloat(res_uniswaprouteethv3_depth.data["0.3%"]).toFixed(2)} , 0.5%: ${parseFloat(res_uniswaprouteethv3_depth.data["0.5%"]).toFixed(2)} , 1%: ${parseFloat(res_uniswaprouteethv3_depth.data["1%"]).toFixed(2)}
+              
+              
+              
 
         -----[DFYN]-----  
 
@@ -186,7 +185,7 @@ try {
           1.3 Gate
             1.1.1 Trading Volume: ${Number(vol_gate_dfyn).toLocaleString()}
             1.1.2 Spread: ${parseFloat((res_gate3.data[0].lowest_ask-res_gate3.data[0].highest_bid) / res_gate3.data[0].highest_bid * 100).toFixed(2)}
-            1.1.3 Depth: 0.3%: ${parseFloat(depth_gate_dfyn["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(depth_gate_dfyn["0.5%"]).toFixed(2)}, 1%: ${parseFloat(depth_gate_dfyn["1%"]).toFixed(2)}
+            1.1.3 Depth: 0.3%: ${parseFloat(depth_gate_dfyn["0.3%"]).toFixed(2)}, 0.5%: ${parseFloat(depth_gate_dfyn["0.5%"]).toFixed(2)}, 1%: ${parseFloat(depth_gate_dfyn["1%"]).toFixed(2)} 
       `, 
       }, {
         headers: {
