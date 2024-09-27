@@ -166,9 +166,6 @@ try {
           1.10 UniSwap V3 ROUTE-ETH
             1.1.1 Trading Volume: ${(Number(res_uniswaprouteethv3.data.data.attributes.volume_usd.h24)).toLocaleString()}
             1.1.2 Depth: 0.3%: ${parseFloat(res_uniswaprouteethv3_depth.data["0.3%"]).toFixed(2)} , 0.5%: ${parseFloat(res_uniswaprouteethv3_depth.data["0.5%"]).toFixed(2)} , 1%: ${parseFloat(res_uniswaprouteethv3_depth.data["1%"]).toFixed(2)}
-              
-              
-              
 
         -----[DFYN]-----  
 
