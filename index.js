@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 const userCollection = collection(db, "user");
 import cron from 'node-cron';
+import dotenv from 'dotenv';
 
 
 // Express server
@@ -112,9 +113,8 @@ const runAtMidnight = async() => {
     const vol_gate_dfyn = parseFloat(res_gate3.data[0].quote_volume).toFixed(2);
     const depth_gate_dfyn = res_gate4.data;
 
-    // liquidity-dashboard Webhook URL- https://hooks.slack.com/services/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
-    // ld-test Webhook URL - https://hooks.slack.com/services/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
-    const webhookUrl = 'https://hooks.slack.com/services/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';
+
+    const webhookUrl = process.env.LD_TEST_WEBHOOK_URL;
 
       try {
         const response = await axios.post(webhookUrl, {
